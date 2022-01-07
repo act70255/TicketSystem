@@ -12,6 +12,7 @@ namespace TicketSystem.Data
         public TicketSystemContext (DbContextOptions<TicketSystemContext> options)
             : base(options)
         {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<TicketSystem.Models.Ticket> Ticket { get; set; }
@@ -24,6 +25,13 @@ namespace TicketSystem.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AccountRole>().HasOne(s => s.Account).WithMany(s => s.AccountRoles).HasForeignKey(s => s.AccountID);
+            modelBuilder.Entity<AccountRole>().HasOne(s => s.Account).WithMany(s => s.AccountRoles).HasForeignKey(s => s.AccountID);
+            modelBuilder.Entity<AccountRole>().HasOne(s => s.Account).WithMany(s => s.AccountRoles).HasForeignKey(s => s.AccountID);
+            modelBuilder.Entity<AccountRole>().HasOne(s => s.Account).WithMany(s => s.AccountRoles).HasForeignKey(s => s.AccountID);
+            modelBuilder.Entity<AccountRole>().HasOne(s => s.Account).WithMany(s => s.AccountRoles).HasForeignKey(s => s.AccountID);
+            modelBuilder.Entity<AccountRole>().HasOne(s => s.Account).WithMany(s => s.AccountRoles).HasForeignKey(s => s.AccountID);
 
             modelBuilder.Entity<AccountRole>().HasOne(s => s.Account).WithMany(s => s.AccountRoles).HasForeignKey(s => s.AccountID);
             modelBuilder.Entity<AccountRole>().HasOne(s => s.Role).WithMany(s => s.AccountRoles).HasForeignKey(s => s.RoleID);

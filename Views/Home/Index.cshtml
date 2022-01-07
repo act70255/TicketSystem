@@ -1,8 +1,16 @@
-﻿@{
+﻿@model IEnumerable<TicketSystem.Models.Account>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-2">Select a user</h1>
 </div>
+
+@foreach (var item in Model)
+{
+    <form asp-controller="Home" asp-action="Menu"  asp-route-id="@item.ID">
+        <input type="submit" value="@item.Name" class="btn btn-primary" />
+    </form>
+    <br />
+}

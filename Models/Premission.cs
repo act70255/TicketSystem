@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TicketSystem.Models
 {
-    public class Premission
+    public class Premission : BaseModel
     {
         public enum PremissionEnum
         {
@@ -25,9 +25,6 @@ namespace TicketSystem.Models
         }
 
         public PremissionEnum PremissionType { get; set; }
-        public string ID { get; set; }
-        public DateTime Created { get; set; }
-        public string CreatorID { get; set; }
 
         public ICollection<RolePremission> RolePremissions { get; set; }
     }

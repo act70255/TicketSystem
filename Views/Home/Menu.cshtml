@@ -1,0 +1,12 @@
+﻿@model List<TicketSystem.Models.NavigationParameterModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach (var item in Model)
+{
+    <form asp-controller="@item.Controller" asp-action="Index">
+        <input type="submit" value="@item.DisplayName" class="btn btn-primary" />
+    </form>
+    <br>
+}

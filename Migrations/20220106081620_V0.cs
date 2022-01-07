@@ -31,7 +31,9 @@ namespace TicketSystem.Migrations
                     ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PremissionType = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CreatorID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeleterID = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,7 +47,9 @@ namespace TicketSystem.Migrations
                     ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CreatorID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeleterID = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,6 +64,7 @@ namespace TicketSystem.Migrations
                     Summary = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
+                    Resolved = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatorID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),

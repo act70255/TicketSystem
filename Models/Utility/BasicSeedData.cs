@@ -46,18 +46,23 @@ namespace TicketSystem.Models.Utility
                 Role Role_RD = new Role { Name = "RD", CreatorID = SAID };
                 Role Role_PM = new Role { Name = "PM", CreatorID = SAID };
 
-
+                try
+                {
                 context.Account.AddRange
                     (Account_SA,
                     Account_QA,
                     Account_RD,
                     Account_PM,
                     Account_Admin);
+                context.SaveChanges();
+
                 context.Role.AddRange
                     (Role_Admin,
                     Role_QA,
                     Role_RD,
                     Role_PM);
+                context.SaveChanges();
+
                 context.Premission.AddRange
                     (Premission_AccountCreate,
                     Premission_AccountModify,
@@ -72,6 +77,8 @@ namespace TicketSystem.Models.Utility
                     Premission_TestCaseCreate,
                     Premission_TestCaseView,
                     Premission_TestCaseResolve);
+                context.SaveChanges();
+
                 context.RolePremission.AddRange
                     (new RolePremission { RoleID = Role_Admin.ID, PremissionID = Premission_AccountCreate.ID, CreatorID = SAID },
                     new RolePremission { RoleID = Role_Admin.ID, PremissionID = Premission_AccountModify.ID, CreatorID = SAID },
@@ -90,13 +97,17 @@ namespace TicketSystem.Models.Utility
                     new RolePremission { RoleID = Role_QA.ID, PremissionID = Premission_TicketCreate.ID, CreatorID = SAID },
                     new RolePremission { RoleID = Role_QA.ID, PremissionID = Premission_TicketModify.ID, CreatorID = SAID },
                     new RolePremission { RoleID = Role_QA.ID, PremissionID = Premission_TicketView.ID, CreatorID = SAID },
+                    new RolePremission { RoleID = Role_QA.ID, PremissionID = Premission_TestCaseCreate.ID, CreatorID = SAID },
+                    new RolePremission { RoleID = Role_QA.ID, PremissionID = Premission_TestCaseView.ID, CreatorID = SAID },
+                    new RolePremission { RoleID = Role_QA.ID, PremissionID = Premission_TestCaseResolve.ID, CreatorID = SAID },
 
-                    new RolePremission { RoleID = Role_RD.ID, PremissionID = Premission_TestCaseCreate.ID, CreatorID = SAID },
-                    new RolePremission { RoleID = Role_RD.ID, PremissionID = Premission_TestCaseView.ID, CreatorID = SAID },
-                    new RolePremission { RoleID = Role_RD.ID, PremissionID = Premission_TestCaseResolve.ID, CreatorID = SAID },
+                    new RolePremission { RoleID = Role_RD.ID, PremissionID = Premission_TicketView.ID, CreatorID = SAID },
+                    new RolePremission { RoleID = Role_RD.ID, PremissionID = Premission_TicketResolve.ID, CreatorID = SAID },
                     new RolePremission { RoleID = Role_RD.ID, PremissionID = Premission_FeatureRequestView.ID, CreatorID = SAID },
                     new RolePremission { RoleID = Role_RD.ID, PremissionID = Premission_FeatureRequestResolve.ID, CreatorID = SAID },
+                    new RolePremission { RoleID = Role_RD.ID, PremissionID = Premission_TestCaseView.ID, CreatorID = SAID },
 
+                    new RolePremission { RoleID = Role_PM.ID, PremissionID = Premission_TestCaseView.ID, CreatorID = SAID },
                     new RolePremission { RoleID = Role_PM.ID, PremissionID = Premission_FeatureRequestView.ID, CreatorID = SAID },
                     new RolePremission { RoleID = Role_PM.ID, PremissionID = Premission_FeatureRequestCreate.ID, CreatorID = SAID });
 
@@ -106,8 +117,7 @@ namespace TicketSystem.Models.Utility
                     new AccountRole { AccountID = Account_RD.ID, RoleID = Role_RD.ID },
                     new AccountRole { AccountID = Account_PM.ID, RoleID = Role_PM.ID },
                     new AccountRole { AccountID = Account_Admin.ID, RoleID = Role_Admin.ID });
-                try
-                {
+                
                     context.SaveChanges();
                 }
                 catch (Exception ex)

@@ -90,6 +90,12 @@ namespace TicketSystem.Migrations
                     b.Property<string>("CreatorID")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("Deleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeleterID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PremissionType")
                         .HasColumnType("int");
 
@@ -107,6 +113,12 @@ namespace TicketSystem.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatorID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Deleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeleterID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -169,6 +181,9 @@ namespace TicketSystem.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Resolved")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Summary")
                         .IsRequired()

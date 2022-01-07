@@ -6,20 +6,16 @@ using System.Threading.Tasks;
 
 namespace TicketSystem.Models
 {
-    public class Role
+    public class Role : BaseModel
     {
         public Role()
         {
             CreatorID = Guid.Empty.ToString();
         }
-
-        public string ID { get; set; }
         public string Name { get; set; }
-        public DateTime Created { get; set; }
-        public string CreatorID { get; set; }
 
-        public ICollection<AccountRole> AccountRoles { get; set; }
-        public ICollection<RolePremission> RolePremissions { get; set; }
+        public virtual ICollection<AccountRole> AccountRoles { get; set; }
+        public virtual ICollection<RolePremission> RolePremissions { get; set; }
     }
 
     public class RolePremission : BaseModel
