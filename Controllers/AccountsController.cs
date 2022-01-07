@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -45,9 +46,11 @@ namespace TicketSystem.Controllers
         }
 
         // GET: Accounts/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            AccountViewModel vm = new AccountViewModel();
+            vm.RoleList = await _context.Role.ToListAsync();
+            return View(vm);
         }
 
         // POST: Accounts/Create
@@ -55,11 +58,13 @@ namespace TicketSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Pwd,ID,Created,CreatorID,Deleted,DeleterID")] Account account)
+        public async Task<IActionResult> Create([Bind("Name,Pwd,ID,RoleID,RoleList,Created,CreatorID,Deleted,DeleterID")] AccountViewModel account)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(account);
+                account.CreatorID = HttpContext.Session.GetString("UserID");
+                _context.AccountRole.Add(new AccountRole { AccountID = account.ID, RoleID = account.RoleID,CreatorID = HttpContext.Session.GetString("UserID") });
+                _context.Add((Account)account);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -74,6 +79,8 @@ namespace TicketSystem.Controllers
                 return NotFound();
             }
 
+            AccountViewModel vm = new AccountViewModel();
+            vm.RoleList = await _context.Role.ToListAsync();
             var account = await _context.Account.FindAsync(id);
             if (account == null)
             {
@@ -87,7 +94,7 @@ namespace TicketSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,Pwd,ID,Created,CreatorID,Deleted,DeleterID")] Account account)
+        public async Task<IActionResult> Edit(string id, [Bind("Name,Pwd,ID,RoleID,Created,CreatorID,Deleted,DeleterID")] AccountViewModel account)
         {
             if (id != account.ID)
             {
@@ -150,5 +157,11 @@ namespace TicketSystem.Controllers
         {
             return _context.Account.Any(e => e.ID == id);
         }
+    }
+
+    public class AccountViewModel : Account
+    {
+        public string RoleID { get; set; }
+        public List<Role> RoleList { get; set; }
     }
 }

@@ -59,6 +59,7 @@ namespace TicketSystem.Controllers
                     .Select(s => s.Premission)).Distinct()
                     .Select(s => s.PremissionType).ToList();
                 HttpContext.Session.SetString("Premission", string.Join(";", premissions.Select(s => ((int)s).ToString()).ToArray()));
+                HttpContext.Session.SetString("UserID", user.ID);
 
                 List<NavigationParameterModel> menuList = new List<NavigationParameterModel>();
                 if (premissions.Contains(Premission.PremissionEnum.AccountView))
